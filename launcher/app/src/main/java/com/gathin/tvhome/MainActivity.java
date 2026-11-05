@@ -196,6 +196,9 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
     private boolean lunar;
     private int lunarOffset;
     private TextView stats;
+    /** config.xml weather_feed: the weather now and the next three days, two lines under the clock; null when the key is empty. */
+    private WeatherLine weatherLine;
+    private TextView weatherView;
     private List<RaceWeekend.Race> raceCalendar;
     private View racePanel;
     private TextView raceKicker, raceHeadline, raceSessions;
@@ -572,6 +575,13 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
         raceBar = findViewById(R.id.raceBar);
         racePager = findViewById(R.id.racePager);
         gameDay = GameDay.create(this, cfg.gameDay, handler, this::updatePanel);
+        weatherView = findViewById(R.id.weather);
+        weatherLine = WeatherLine.create(this, getString(R.string.weather_feed), handler, () -> {
+            // Focus must not sit on a line that is about to go: hand it back to the first tile.
+            if (weatherLine.text().length() == 0 && weatherView.hasFocus()) focusTile(0);
+            showLine(weatherView, weatherLine.text());
+        });
+        if (weatherLine != null) weatherView.setOnClickListener(v -> openWeatherApp());
         // The rotation runs on the clock that never jumps: setting the TV's time must not stall or stretch a turn.
         rotationStart = SystemClock.elapsedRealtime();
         showStats = cfg.showStats;
@@ -1122,6 +1132,7 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
         }
         if (showStats) startStats();
         if (gameDay != null) gameDay.start();
+        if (weatherLine != null) weatherLine.start();
         sky.update();
         wallpaperPlayer.start();
         handler.postDelayed(minuteTick, MINUTE_MS);
@@ -1307,6 +1318,7 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
         startPending = null;   // leaving Home before the network came back: the boot's app stays closed
         stopStats();
         if (gameDay != null) gameDay.stop();
+        if (weatherLine != null) weatherLine.stop();
         handler.removeCallbacks(turnTick);
         if (lamp != null) lamp.stop();
         cancelPendingFocusScroll();
@@ -1366,6 +1378,7 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
         RemoteKeys.release(this);
         cancelHoldOk();
         if (gameDay != null) gameDay.shutdown();
+        if (weatherLine != null) weatherLine.shutdown();
         unregisterReceiver(packageReceiver);
         if (openOnStartOnWake) unregisterReceiver(wakeReceiver);
         wallpaperPlayer.close();
@@ -2226,6 +2239,26 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
         glass.animate().cancel();
         if (animations && !reducedMotion) glass.animate().alpha(0f).setDuration(160).start();
         else glass.setAlpha(0f);
+    }
+
+    /** OK on the weather lines: the add-on's own page, with the whole forecast. */
+    private void openWeatherApp() {
+        String pkg = getString(R.string.weather_feed).trim();
+        Intent launch = getPackageManager().getLeanbackLaunchIntentForPackage(pkg);
+        if (launch == null) launch = getPackageManager().getLaunchIntentForPackage(pkg);
+        if (launch == null) return;
+        launch.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        try {
+            startActivity(launch);
+        } catch (ActivityNotFoundException | SecurityException e) {
+            // Disabled or removed since the last read: the line goes at the next one.
+        }
+    }
+
+    /** A weather line: its text, or gone while there is none. */
+    private static void showLine(TextView view, CharSequence text) {
+        view.setText(text);
+        view.setVisibility(text.length() == 0 ? View.GONE : View.VISIBLE);
     }
 
     // ---- optional system stats (config.xml show_stats) --------------------------------------------

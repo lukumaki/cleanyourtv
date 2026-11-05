@@ -458,6 +458,10 @@
          online. A theme can set "game_day". -->
     <string name="game_day" translatable="false"></string>
 
+    <!-- The weather now and the next three days, two lines under the clock: the package of an add-on that publishes it
+         (the Weather add-on: io.github.sumyabazar1.weather; contract in docs/modules.md). Empty = off: nothing is read. -->
+    <string name="weather_feed" translatable="false"></string>
+
     <!-- Time-of-day backdrop behind everything: a dark gradient that follows the clock, with a warm
          horizon glow around sunrise and sunset. 0 keeps the plain background (the default); 1 to 100
          sets its opacity. Around 60 reads clearly without hiding a wallpaper. Can also be set with

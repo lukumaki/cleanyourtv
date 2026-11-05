@@ -77,18 +77,23 @@ final class Forecast {
         }
     }
 
-    /** One forecast day: its date, the WMO code and the high and low in degrees Celsius as read. */
+    /**
+     * One forecast day: its date, the WMO code, the high and low in degrees Celsius as read, and the day's highest
+     * chance of precipitation in % (-1 when the model gives none).
+     */
     static final class Day {
         final LocalDate date;
         final int code;
         final double maxC;
         final double minC;
+        final int rainPct;
 
-        Day(LocalDate date, int code, double maxC, double minC) {
+        Day(LocalDate date, int code, double maxC, double minC, int rainPct) {
             this.date = date;
             this.code = code;
             this.maxC = maxC;
             this.minC = minC;
+            this.rainPct = rainPct;
         }
     }
 
@@ -124,7 +129,8 @@ final class Forecast {
         // and Google, had snow falling.
         JSONObject reply = get("https://api.open-meteo.com/v1/forecast?" + where + "&models=icon_seamless"
                 + "&current=temperature_2m,relative_humidity_2m,apparent_temperature,weather_code,is_day,wind_speed_10m"
-                + "&daily=weather_code,temperature_2m_max,temperature_2m_min&timezone=auto&forecast_days="
+                + "&daily=weather_code,temperature_2m_max,temperature_2m_min,precipitation_probability_max"
+                + "&timezone=auto&forecast_days="
                 + (forecastDays(days) + 1));
         JSONObject current = reply.getJSONObject("current");
         double temp = current.getDouble("temperature_2m");
@@ -164,6 +170,8 @@ final class Forecast {
         JSONArray codes = daily.getJSONArray("weather_code");
         JSONArray max = daily.getJSONArray("temperature_2m_max");
         JSONArray min = daily.getJSONArray("temperature_2m_min");
+        // Not every model gives a chance of rain: without the array, or for one day, it is -1 (unknown).
+        JSONArray rain = daily.optJSONArray("precipitation_probability_max");
         List<Day> out = new ArrayList<>();
         for (int i = 1; i < dates.length(); i++) {
             // With forecast_days 7 the last day can come back without values: stop there instead of failing the page.
@@ -171,7 +179,8 @@ final class Forecast {
             // A day whose high stays near freezing gets the same rain-to-snow correction, with the high and
             // saturated air, which is the warm end of the day's precipitation.
             out.add(new Day(LocalDate.parse(dates.getString(i)), snowIfCold(codes.getInt(i), max.getDouble(i), 100),
-                    max.getDouble(i), min.getDouble(i)));
+                    max.getDouble(i), min.getDouble(i),
+                    rain == null || rain.isNull(i) ? -1 : (int) Math.round(rain.getDouble(i))));
         }
         return out;
     }
