@@ -15,6 +15,13 @@
         android:supportsRtl="false"
         android:theme="@android:style/Theme.Material.NoActionBar.Fullscreen">
 
+        <!-- The weather now, read-only, for a launcher that shows it on Home (docs/modules.md, "The weather on Home"). -->
+        <meta-data android:name="com.gathin.tvhome.weather" android:value="io.github.sumyabazar1.weather.feed" />
+        <provider
+            android:name=".WeatherProvider"
+            android:authorities="io.github.sumyabazar1.weather.feed"
+            android:exported="true" />
+
         <activity
             android:name=".WeatherActivity"
             android:exported="true"

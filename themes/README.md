@@ -74,6 +74,7 @@ A new key needs one there in the same pull request.
 | Key | Type | Meaning |
 |---|---|---|
 | `dock_apps` | list of package names | The dock row, in order; missing apps are skipped |
+| `grid_apps` | string array | Packages that follow the dock, in this order, ahead of the alphabetical grid and the module cards. They take no dock slot, unlike `dock_apps`. `config.xml` only. Empty unless set |
 | `fill_dock` | bool | Fill the dock slots `dock_apps` leaves free with the first grid apps (true by default); false leaves them empty |
 | `hidden_apps` | list of package names | Never shown as tiles |
 | `live_tv_package`, `live_tv_action` | string | The Live TV app and, if it has no leanback entry, the action to start it with |
@@ -136,6 +137,7 @@ A new key needs one there in the same pull request.
 | `show_home_settings_shortcut` | bool | Keep the optional Default-home tile visible when the TV has a home picker; false by default |
 | `show_stats` | bool | One line under the clock with CPU, free memory and free storage. Off unless set |
 | `game_day` | string | Each team's next game in the F1 panel's place under the clock ("Minnesota Wild at Dallas Stars", "Puck drop in 2h 18m", "Live now"), rotating every few seconds with the F1 weekend when `race_calendar` is on: the package of an add-on that publishes them, such as the Game Day add-on (`io.github.justinnewman.gameday`). The launcher only reads it and stays offline. Off (empty) unless set |
+| `weather_feed` | string | The weather now and the next three days as two lines under the clock, below the `show_stats` line when that is on (the place, the temperature, the humidity and the feels-like temperature; then each day's high and low, with the chance of rain from 50%): the package of an add-on that publishes it, such as the Weather add-on (`io.github.sumyabazar1.weather`). OK on the lines opens the add-on. The launcher only reads it and stays offline. `config.xml` only. Off (empty) unless set |
 | `handle_view_inputs` | bool | Answer the system input switcher (`VIEW_INPUTS`, what the remote's Input button becomes) with the Inputs menu, for sets whose stock launcher was its only handler (Hisense huangshan); `false` by default so a TV with its own input picker never gets a chooser |
 | `background_color` | `#RRGGBB` | Colour behind everything; black by default |
 | `sky_intensity` | 0 to 100 | Time-of-day backdrop: a dark gradient that follows the clock, 0 hides it (default) |

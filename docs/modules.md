@@ -148,3 +148,50 @@ the `game_day` key (`config.xml` or a theme); there is no card prompt for it.
    pressed on Home, right after a row ends, and on each change, and watches only while Home is on screen.
 
 The [Game Day](../addons/README.md) add-on implements this from calendar links the person adds.
+
+## The weather on Home (weather_feed)
+
+An app can hand Home the weather now and the next three days. The launcher shows two lines under the clock (under
+the `show_stats` line when that is on): the weather now, then the three days, each with its high and low and, from 50%
+up, its chance of rain. OK on the lines opens the app. The launcher only reads; it never writes to the app and never goes
+online, so the app does the fetching. The owner opts in by naming the app's package in the `weather_feed` key
+(`config.xml`); there is no card prompt for it.
+
+1. Name a read-only content provider in a `meta-data` on your `<application>`:
+
+   ```xml
+   <meta-data android:name="com.gathin.tvhome.weather" android:value="com.example.weather.feed" />
+   <provider android:name=".WeatherProvider" android:authorities="com.example.weather.feed" android:exported="true" />
+   ```
+
+   The provider must belong to the package the owner named; the launcher ignores an authority another app holds.
+2. Answer a query on `content://<authority>/now` with one row and these columns:
+
+   | Column | Type | What |
+   |---|---|---|
+   | `place` | text | The name of the place, as the person chose it. |
+   | `temp_c`, `feels_c` | real | Degrees Celsius, as read; the launcher rounds them. |
+   | `condition` | text | The sky in the app's own words, for example "Partly cloudy". |
+   | `humidity` | integer | Relative humidity in %. |
+   | `wind_kmh` | integer | Wind speed in km/h. |
+   | `aqi` | integer | US air quality index, or -1 when unknown. |
+   | `updated_ms` | integer | Epoch milliseconds of the reading. |
+
+   An add-on may add columns after these; a launcher reads the first eight by position.
+3. Answer a query on `content://<authority>/days` with one row per day after today, tomorrow first (three rows):
+
+   | Column | Type | What |
+   |---|---|---|
+   | `day` | text | The weekday, short, in the app's language ("Thu"). |
+   | `condition` | text | The day's sky in the app's own words. |
+   | `max_c`, `min_c` | real | The high and low in degrees Celsius, as read. |
+   | `rain_pct` | integer | The day's highest chance of precipitation in %; null when unknown. |
+
+   An empty cursor hides the line (no place chosen yet, or no reading worth showing). The provider is exported
+   without a permission, so it must hold nothing private: a place name and the weather there is all this carries.
+4. Keep the reading cached. The launcher queries when Home comes to the front and every 3 hours while it is on
+   screen, on its own thread, so a query may block on the network, but the app should reuse a recent reading rather
+   than go online for every query. Reuse it for the same 3 hours, and answer with an empty cursor once a refresh has
+   failed for twice that long, so one failed refresh does not blank the lines.
+
+The [Weather](../addons/README.md) add-on implements this for the city the person chose.
