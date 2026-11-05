@@ -1,0 +1,100 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Rain</title>
+<!--
+  The rainy city, from Home Deck (https://github.com/glidiandev/home-deck, commit cc636c78, MIT, Copyright (c) 2026
+  Glidian; see LICENSE.home-deck). core.js, towers.js and rain.css are theirs, unchanged apart from the notice at the
+  top. This page is theirs rain/index.html cut down to what the scene needs, with three changes: the colours and the
+  font are set here instead of in Home Deck's design tokens, the clock can be 24-hour, and the date uses the TV's
+  language. RainDream.java passes them in the address: ?view=window|downpour&h24=1|0&lang=el-GR&fps=0|30|...
+-->
+<style>
+  @font-face { font-family: "Rajdhani"; src: url(rajdhani-500-latin.woff2) format("woff2"); font-weight: 500; }
+  :root {
+    --hd-chrome: #ff5a52;   /* the red glow round the time (Home Deck's default look) */
+    --hd-act: #5ef6ff;      /* the cyan on the "am/pm" and the date */
+    --hd-font-num: "Rajdhani", system-ui, sans-serif;
+    --hd-font-ui: "Rajdhani", system-ui, sans-serif;   /* Rajdhani has no Greek: the TV's own font takes those letters */
+  }
+  html, body { margin: 0; height: 100%; background: #000; overflow: hidden; }
+  body { -webkit-font-smoothing: antialiased; }
+  .stage { position: absolute; left: 50%; top: 50%; width: 1920px; height: 1080px; transform-origin: center;
+           overflow: hidden; user-select: none; visibility: hidden; }   /* hidden until scaled to the screen */
+  .stage.is-fit { visibility: visible; }
+</style>
+<link rel="stylesheet" href="rain.css">
+</head>
+<body>
+<!-- Looking out of a window at a neon city in the rain, the time glowing in it. -->
+<div class="stage hd-root" id="stage">
+  <div class="saver">
+    <canvas class="city" id="city" width="80" height="45"></canvas>
+    <div class="time" id="time">
+      <div class="time__now"><span data-hm></span><small data-ap></small></div>
+      <div class="time__date" data-date></div>
+    </div>
+    <canvas class="air" id="air" width="480" height="270"></canvas>
+    <canvas class="glass" id="drops" width="960" height="540"></canvas>
+    <canvas class="glass" id="glass" width="960" height="540"></canvas>
+    <div class="glass-fog"></div>
+  </div>
+</div>
+<script>
+  // What the rain scripts need from the page: fitting the 1920x1080 stage to the screen, the time, and the colours.
+  const Q = new URLSearchParams(location.search);
+  const H24 = Q.get('h24') !== '0';
+  const LANG = Q.get('lang') || navigator.language || 'en';
+  // fps: a cap on how often the scene redraws (0 = as often as the screen allows). A TV chip pays for every frame.
+  const FPS = Number(Q.get('fps')) || 0;
+  if (FPS > 0) {
+    const raf = window.requestAnimationFrame.bind(window);
+    let last = 0;
+    window.requestAnimationFrame = cb => raf(function step(t) {
+      if (t - last < 1000 / FPS - 3) { raf(step); return; }
+      last = t; cb(t);
+    });
+  }
+  window.HD = {
+    fit(stage) {
+      const go = () => { const de = document.documentElement, s = Math.min(de.clientWidth / 1920, de.clientHeight / 1080);
+                         stage.style.transform = `translate(-50%, -50%) scale(${s})`; stage.classList.add('is-fit'); };
+      addEventListener('resize', go); go();
+    },
+    time(d = new Date()) {
+      const h = d.getHours(), two = n => String(n).padStart(2, '0');
+      let date;
+      try { date = d.toLocaleDateString(LANG, { weekday: 'long', month: 'long', day: 'numeric' }); }
+      catch (e) { date = d.toDateString(); }
+      return H24 ? { hm: `${two(h)}:${two(d.getMinutes())}`, ap: '', date }
+                 : { hm: `${h % 12 || 12}:${two(d.getMinutes())}`, ap: h < 12 ? 'am' : 'pm', date };
+    },
+    css: name => getComputedStyle(document.documentElement).getPropertyValue(name).trim(),
+  };
+</script>
+<script src="core.js"></script>
+<script src="towers.js"></script>
+<script>
+  // The two views. Window: looking straight across at the towers in the rain, the city far out of focus.
+  // Downpour: right up against the glass in a storm, heavier rain, more streams and more lightning.
+  const VIEWS = {
+    window: {
+      seed: 23, ...RainCity.towers({ winSize: 2.4, winChance: .75, signScale: 1.4 }),
+      focus: 'far',
+      lanes: [{ y: 50, s: .55, n: 3, depth: 0, spread: 30 }, { y: 110, s: .6, n: 2, depth: 0, spread: 30 },
+              { y: 60, s: .9, n: 4, depth: 1, spread: 24 }, { y: 100, s: 1, n: 5, depth: 1, spread: 24 }, { y: 135, s: 1.1, n: 3, depth: 1, spread: 10 }],
+      chaseY: [45, 115], closeY: [40, 130],
+    },
+    downpour: {
+      seed: 7, ...RainCity.towers({ winSize: 2.6, winChance: .7, signs: 14, signScale: 1.5, haze: [['chrome', .32], ['magenta', .12]], searchlight: false }),
+      focus: 'far', storm: 1.6, lightning: [16, 40],
+      lanes: [{ y: 70, s: 1, n: 4, depth: 1, spread: 40 }, { y: 120, s: 1.3, n: 3, depth: 1, spread: 20 }],
+      chaseY: [55, 120], chaseS: 1.8, closeY: [40, 130],
+    },
+  };
+  RainCity(VIEWS[Q.get('view')] || VIEWS.window);
+</script>
+</body>
+</html>

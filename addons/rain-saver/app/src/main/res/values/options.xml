@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- The screen saver's clock: true for 24-hour, false for 12-hour with am/pm. -->
+    <bool name="clock_24h">true</bool>
+    <!-- window: looking across at the neon towers in the rain, the city out of focus (calm).
+         downpour: right against the glass in a storm, heavier rain and lightning. -->
+    <string name="rain_view" translatable="false">window</string>
+    <!-- How often the scene may redraw, a cap in frames a second; 0 lets it draw as often as the screen allows. The scene
+         is the cost: on a quad-core TV chip it takes about 70% of the CPU uncapped, about half at 30 and a little less at 20
+         (measured on a Tesla Q55E655GUS). The city is out of focus, so a lower number is hard to see. -->
+    <integer name="rain_fps">30</integer>
+</resources>

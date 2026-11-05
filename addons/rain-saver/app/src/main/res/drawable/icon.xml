@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- A dark window on a rainy city: the tile's icon. -->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="96dp" android:height="96dp" android:viewportWidth="96" android:viewportHeight="96">
+    <path android:fillColor="#0B0D1A" android:pathData="M0,0h96v96h-96z" />
+    <path android:fillColor="#1A1F3A" android:pathData="M8,96V52h14v44z M26,96V34h16v62z M46,96V46h12v50z M62,96V28h14v68z M80,96V56h10v40z" />
+    <path android:fillColor="#FF5A52" android:pathData="M30,40h3v3h-3z M36,52h3v3h-3z M66,34h3v3h-3z M66,52h3v3h-3z" />
+    <path android:fillColor="#5EF6FF" android:pathData="M30,60h3v3h-3z M50,56h3v3h-3z M12,62h3v3h-3z M84,66h3v3h-3z" />
+    <path android:strokeColor="#9FB4FF" android:strokeWidth="1.4" android:strokeAlpha="0.7"
+        android:pathData="M18,6l-3,12 M40,2l-3,12 M60,8l-3,12 M78,4l-3,12 M30,22l-3,12 M52,24l-3,12 M70,26l-3,12 M88,30l-3,12" />
+</vector>

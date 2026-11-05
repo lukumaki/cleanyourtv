@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- The Android TV banner: a neon city in the rain. -->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="320dp" android:height="180dp" android:viewportWidth="320" android:viewportHeight="180">
+    <path android:fillColor="#0B0D1A" android:pathData="M0,0h320v180h-320z" />
+    <path android:fillColor="#1A1F3A" android:pathData="M10,180V110h26v70z M42,180V76h30v104z M78,180V96h22v84z M106,180V60h34v120z M146,180V90h24v90z M176,180V70h30v110z M212,180V104h22v76z M240,180V50h32v130z M278,180V92h32v88z" />
+    <path android:fillColor="#FF5A52" android:pathData="M50,90h5v5h-5z M58,106h5v5h-5z M114,74h5v5h-5z M122,98h5v5h-5z M186,84h5v5h-5z M250,70h5v5h-5z M258,118h5v5h-5z M290,110h5v5h-5z" />
+    <path android:fillColor="#5EF6FF" android:pathData="M50,122h5v5h-5z M86,112h5v5h-5z M150,104h5v5h-5z M196,100h5v5h-5z M216,120h5v5h-5z M250,92h5v5h-5z M18,126h5v5h-5z M122,122h5v5h-5z" />
+    <path android:strokeColor="#9FB4FF" android:strokeWidth="1.6" android:strokeAlpha="0.6"
+        android:pathData="M20,8l-4,18 M60,2l-4,18 M104,12l-4,18 M150,4l-4,18 M196,14l-4,18 M242,6l-4,18 M286,16l-4,18 M40,40l-4,18 M126,44l-4,18 M220,46l-4,18 M300,50l-4,18" />
+</vector>
