@@ -17,8 +17,8 @@ one focus target: press Up from the dock and OK to open the Weather add-on's ful
 
 ## See exactly what changed
 
-This fork is built on the original's **v3.3.0** release and is two commits ahead of it: 15 files, about 650 added lines.
-GitHub shows every changed line here:
+This fork is built on the original's **v3.3.0** release. GitHub shows every changed line, with the current counts of
+commits and files, here:
 [Gathin23/cleanyourtv v3.3.0 ... lukumaki:weather-feed](https://github.com/Gathin23/cleanyourtv/compare/v3.3.0...lukumaki:weather-feed).
 The README keeps the original text under a short note at the top, so a later merge from the original stays easy.
 
