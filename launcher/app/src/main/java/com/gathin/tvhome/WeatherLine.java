@@ -29,7 +29,7 @@ final class WeatherLine {
     /** Read again this often while Home is on screen: the add-on caches for as long, so most reads cost nothing. */
     private static final long EVERY_MS = 3 * 60 * 60_000L;
     /** Asked again this soon when the add-on had nothing (a failed fetch on its side, or no city chosen yet) or the query failed. */
-    private static final long RETRY_MS = 5 * 60_000L;
+    private static final long RETRY_MS = 60_000L;
     /** A day shows its chance of rain from this many % up. */
     static final int RAIN_FROM_PCT = 50;
     /** Between the parts of a line, set in bold. */

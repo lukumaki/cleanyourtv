@@ -2,9 +2,12 @@ package io.github.sumyabazar1.weather;
 
 import android.content.ContentProvider;
 import android.content.ContentValues;
+import android.content.Context;
 import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.database.MatrixCursor;
+import android.net.ConnectivityManager;
+import android.net.NetworkCapabilities;
 import android.net.Uri;
 
 import java.time.format.TextStyle;
@@ -16,8 +19,9 @@ import java.util.Locale;
  * what the page already shows: the place's name and the weather there, no account and no location.
  *
  * Nothing runs in the background: a query is the only thing that goes online, and the last reading is reused for
- * {@link #FEED_REFRESH_MS}. After a failed read the next try waits {@link Forecast#RETRY_MS}, and a reading
- * older than {@link #FEED_MAX_AGE_MS} is dropped rather than shown as current.
+ * {@link #FEED_REFRESH_MS}. It goes online only while Android reports the network as validated. After a failed
+ * read the next try waits {@link Forecast#RETRY_MS}, and a reading older than {@link #FEED_MAX_AGE_MS} is dropped
+ * rather than shown as current.
  */
 public final class WeatherProvider extends ContentProvider {
     /**
@@ -42,6 +46,9 @@ public final class WeatherProvider extends ContentProvider {
     private static long lastAt;
     private static double lastLat, lastLon;
     private static long failedAt;
+    /** Longest the feed waits for Android to validate the network before it tries anyway. */
+    static final long VALIDATION_WAIT_MS = 2 * 60_000L;
+    private static long waitingSince;
 
     @Override
     public boolean onCreate() {
@@ -57,7 +64,7 @@ public final class WeatherProvider extends ContentProvider {
         if (!place.contains("name")) return out;
         double lat = Double.longBitsToDouble(place.getLong("lat", 0));
         double lon = Double.longBitsToDouble(place.getLong("lon", 0));
-        Forecast.Report r = report(lat, lon);
+        Forecast.Report r = report(getContext(), lat, lon);
         if (r == null) return out;
         if (days) {
             for (int i = 0; i < r.days.size() && i < Forecast.MIN_DAYS; i++) {
@@ -77,12 +84,35 @@ public final class WeatherProvider extends ContentProvider {
         return out;
     }
 
-    /** The cached reading while it is fresh, else a new one; null when there is none worth showing. */
-    private static synchronized Forecast.Report report(double lat, double lon) {
+    /**
+     * True when Android has found the current network working: connected is not enough, as the Wi-Fi comes up a few
+     * seconds before the internet does after a boot. When it cannot be asked, the answer is yes.
+     */
+    private static boolean validated(Context ctx) {
+        ConnectivityManager cm = (ConnectivityManager) ctx.getSystemService(Context.CONNECTIVITY_SERVICE);
+        if (cm == null) return true;
+        NetworkCapabilities caps = cm.getNetworkCapabilities(cm.getActiveNetwork());
+        return caps != null && caps.hasCapability(NetworkCapabilities.NET_CAPABILITY_VALIDATED);
+    }
+
+    /**
+     * The cached reading while it is fresh, else a new one; null when there is none worth showing. A new reading is
+     * asked for only once the network is validated, and a wait for that costs no penalty: only a fetch that really
+     * failed delays the next try. A network Android never validates (a DNS that blocks its check) is tried anyway
+     * after {@link #VALIDATION_WAIT_MS}.
+     */
+    private static synchronized Forecast.Report report(Context ctx, double lat, double lon) {
         long now = System.currentTimeMillis();
         boolean same = last != null && lastLat == lat && lastLon == lon;
         if (same && now - lastAt < FEED_REFRESH_MS) return last;
-        if (now - failedAt >= Forecast.RETRY_MS) {
+        boolean ready = validated(ctx);
+        if (ready) {
+            waitingSince = 0;
+        } else {
+            if (waitingSince == 0) waitingSince = now;
+            ready = now - waitingSince >= VALIDATION_WAIT_MS;
+        }
+        if (ready && now - failedAt >= Forecast.RETRY_MS) {
             try {
                 last = Forecast.fetch(lat, lon, Forecast.MIN_DAYS);
                 lastAt = now;

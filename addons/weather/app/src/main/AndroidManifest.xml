@@ -4,8 +4,11 @@
     <uses-feature android:name="android.software.leanback" android:required="false" />
     <uses-feature android:name="android.hardware.touchscreen" android:required="false" />
 
-    <!-- The only permission: Open-Meteo, for the place search, the weather and the air quality. -->
+    <!-- Open-Meteo, for the place search, the weather and the air quality. -->
     <uses-permission android:name="android.permission.INTERNET" />
+    <!-- Only to ask whether Android has found the network working yet, so the weather on Home is not requested in the
+         seconds after a boot when the Wi-Fi is up but the internet is not. -->
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
     <application
         android:allowBackup="false"
