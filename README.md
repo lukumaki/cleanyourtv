@@ -1,3 +1,15 @@
+> ### This is a fork of [CleanYourTV](https://github.com/Gathin23/cleanyourtv), built on its v3.3.0 release
+>
+> It adds **two weather lines under Home's clock**: the weather now and the next three days (with the chance of rain
+> from 50%), read from the Weather add-on, so the launcher itself stays offline. It is off until you name the add-on in
+> `config.xml`, so with it unset Home looks exactly as the original.
+>
+> **[What is different (FORK.md)](FORK.md)** ·
+> **[Every changed line against v3.3.0](https://github.com/Gathin23/cleanyourtv/compare/v3.3.0...lukumaki:weather-feed)** ·
+> **[The original project](https://github.com/Gathin23/cleanyourtv)**
+>
+> Everything below this box is the original README, unchanged.
+
 <p align="center">
   <a href="https://cleanyour.tv"><img src="https://raw.githubusercontent.com/Gathin23/cleanyourtv/main/docs/banner.png" alt="CleanYourTV. Your TV, minus the ads. Strip the bloatware from any Android TV or Google TV over Wi-Fi and replace the ad-filled home screen with a clean launcher that looks like an Apple TV. No root, no cable, nothing uninstalled, and a one-line restore." width="800"></a>
 </p>

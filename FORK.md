@@ -15,6 +15,13 @@ The first line is the place, the temperature, the humidity and the feels-like te
 days with their high and low; a day shows its chance of rain only from 50%, so a dry week stays short. The two lines are
 one focus target: press Up from the dock and OK to open the Weather add-on's full page.
 
+## See exactly what changed
+
+This fork is built on the original's **v3.3.0** release and is two commits ahead of it: 15 files, about 650 added lines.
+GitHub shows every changed line here:
+[Gathin23/cleanyourtv v3.3.0 ... lukumaki:weather-feed](https://github.com/Gathin23/cleanyourtv/compare/v3.3.0...lukumaki:weather-feed).
+The README keeps the original text under a short note at the top, so a later merge from the original stays easy.
+
 ## What is different
 
 | Part | What it does |
