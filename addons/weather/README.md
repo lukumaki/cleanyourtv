@@ -84,6 +84,13 @@ the weather page, the card prompt, and the card shown in the launcher's dock.
 
 The options: Xiaomi TV (MiTV-MOOR2), Google TV 11, with `forecast_days` 7, `show_humidity` and `show_wind` on.
 
+The weather on Home (the two lines under the launcher's clock, read from this add-on's provider):
+
+- Tesla Smart TV Q55E655GUS (Expressluck, sepolia, MediaTek mt5896), Google TV 14, firmware UKN6.260116.046: the weather
+  page, the card, and the lines on Home with the city chosen in this add-on.
+- Xiaomi TV Box S 3rd gen (MiTV-AFMU0, twilight, Amlogic), Google TV 14, firmware UKG3.250826.001 / V816.0.11.0.UZFAABX: the
+  lines on Home, including the first reading after a reboot, when the add-on waits until Android reports the network as working.
+
 ## Maintainer
 
 [@Sumyabazar1](https://github.com/Sumyabazar1)
