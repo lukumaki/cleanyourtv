@@ -17,7 +17,8 @@ sky-blue glow; on any other Android TV home it is an ordinary app.
   temperature instead, which counts how dry the air is: at 1 °C or below, rain and drizzle are shown as snow.
 - It reads Open-Meteo while the page is on screen, every 30 minutes, or 5 minutes after a failure. It also answers the
   launcher's query for the weather on Home (below), reusing the last reading for 3 hours and dropping it after 6 if
-  the refresh keeps failing. It runs nothing in the background.
+  the refresh keeps failing. It goes online for that only once Android reports the network as validated, and tries
+  anyway after 2 minutes on a network that never validates. It runs nothing in the background.
 - **On Home.** With `weather_feed` set to this add-on's package in the launcher's `config.xml`, the launcher shows two
   lines under the clock: the weather now, for example "Lisbon · 15° · 77% · feels 14°", and the next three days,
   for example "Thu 18°/11° · Fri 17°/10° rain 60% · Sat 16°/9°" (the chance of rain from 50%). OK on them opens this
@@ -54,6 +55,7 @@ Saved choices override these defaults. With no saved choices the page is as abov
 | Permission | Why |
 |---|---|
 | `INTERNET` | Open-Meteo: the place search, the weather and the air quality. |
+| `ACCESS_NETWORK_STATE` | Whether Android has found the network working yet: the weather on Home is asked for only then, not in the seconds after a boot when the Wi-Fi is up and the internet is not. It reads no network name and no address. |
 
 That is all. What is sent: the city name you type in the search, then that place's latitude and longitude. No
 account, no telemetry, no ads, no background service, no location permission. The chosen city stays in the

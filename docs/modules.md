@@ -190,7 +190,7 @@ online, so the app does the fetching. The owner opts in by naming the app's pack
    An empty cursor hides the line (no place chosen yet, or no reading worth showing). The provider is exported
    without a permission, so it must hold nothing private: a place name and the weather there is all this carries.
 4. Keep the reading cached. The launcher queries when Home comes to the front and every 3 hours while it is on
-   screen, on its own thread, so a query may block on the network, but the app should reuse a recent reading rather
+   screen (again after a minute when the answer was empty), on its own thread, so a query may block on the network, but the app should reuse a recent reading rather
    than go online for every query. Reuse it for the same 3 hours, and answer with an empty cursor once a refresh has
    failed for twice that long, so one failed refresh does not blank the lines.
 

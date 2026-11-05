@@ -22,20 +22,24 @@ one focus target: press Up from the dock and OK to open the Weather add-on's ful
 | `weather_feed` (launcher, `config.xml`) | The package of an add-on that publishes the weather. Empty by default: nothing is read and Home looks as it did. A launcher that cannot find the add-on, or finds a provider another app holds, shows nothing. |
 | `addons/weather` (the Weather add-on) | Publishes a read-only content provider, `io.github.sumyabazar1.weather.feed`, with `/now` (place, temperature, feels-like, humidity, wind, air quality) and `/days` (weekday, sky, high, low, chance of rain). It holds only a place name and the weather there. |
 
-The columns are in [docs/modules.md](docs/modules.md), "The weather on Home". They are not the `weather_now` columns the
+The columns are in [docs/modules.md](docs/modules.md), "The weather on Home". The add-on asks for one more permission than
+before, `ACCESS_NETWORK_STATE`, only to read whether Android has validated the network; the launcher's manifest is unchanged. They are not the `weather_now` columns the
 other add-on-fed forks use; they carry the three days and the chance of rain too.
 
 How often it reads, so the TV is not kept online for it:
 
 - The launcher asks when Home comes to the front and every 3 hours while Home is on screen, on its own thread.
-- The add-on reuses its last reading for 3 hours and goes online only when asked and the reading is older. After a
-  failed fetch it waits 5 minutes before the next try, and the launcher asks again after 5 minutes when it got nothing.
+- The add-on reuses its last reading for 3 hours and goes online only when asked and the reading is older. It asks
+  Android whether the network is validated first, so it does not try in the seconds after a boot when the Wi-Fi is up
+  and the internet is not; waiting for that costs nothing, and on a network Android never validates it tries anyway
+  after 2 minutes. After a fetch that really failed it waits 5 minutes before the next try. The launcher asks again
+  after 1 minute when it got nothing.
 - A reading older than 6 hours is dropped and the lines disappear, rather than show an old temperature as current.
 
 ## Tested on
 
 A Tesla Smart TV Q55E655GUS (Expressluck, sepolia, MediaTek mt5896), Google TV 14, with this launcher as Home, in use since
-4 November 2026. The launcher builds to 589,369 bytes, under upstream's 589,824 byte gate, and its unit tests and lint
+4 November 2026. The launcher builds to 589,365 bytes, under upstream's 589,824 byte gate, and its unit tests and lint
 pass. Other TVs have not been tried.
 
 Known limits: the weekday names follow the TV's language, but the sky words come from the add-on, which has English and
