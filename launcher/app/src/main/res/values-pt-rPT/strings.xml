@@ -14,4 +14,6 @@
     <string name="clock_format_system">System</string>
     <string name="clock_format_12">12-hour</string>
     <string name="clock_format_24">24-hour</string>
+    <string name="weather_feels">sensação</string>
+    <string name="weather_rain">chuva</string>
 </resources>

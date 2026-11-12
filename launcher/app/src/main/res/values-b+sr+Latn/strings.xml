@@ -79,4 +79,6 @@
     <string name="clock_format_system">Sistem</string>
     <string name="clock_format_12">12-časovni</string>
     <string name="clock_format_24">24-časovni</string>
+    <string name="weather_feels">osećaj</string>
+    <string name="weather_rain">kiša</string>
 </resources>

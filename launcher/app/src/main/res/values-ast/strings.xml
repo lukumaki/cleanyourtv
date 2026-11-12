@@ -119,4 +119,6 @@
     <string name="race_race_short">CARRERA</string>
     <string name="last_opened">Abierta per última vegada %1$s</string>
     <string name="game_live">En direutu</string>
+    <string name="weather_feels">sensación</string>
+    <string name="weather_rain">lluvia</string>
 </resources>

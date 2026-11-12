@@ -151,9 +151,9 @@ The [Game Day](../addons/README.md) add-on implements this from calendar links t
 
 ## The weather on Home (weather_feed)
 
-An app can hand Home the weather now and the next three days. The launcher shows two lines under the clock (under
+An app can hand Home the weather now and the next three days. The launcher shows a centered, wrapping pill as wide as the clock and date block (under
 the `show_stats` line when that is on): the weather now, then the three days, each with its high and low and, from 50%
-up, its chance of rain. OK on the lines opens the app. The launcher only reads; it never writes to the app and never goes
+up, its chance of rain. OK on the pill opens the app. The launcher only reads; it never writes to the app and never goes
 online, so the app does the fetching. The owner opts in by naming the app's package in the `weather_feed` key
 (`config.xml`); there is no card prompt for it.
 

@@ -115,4 +115,6 @@
     <string name="clock_format_system">Järjestelmä</string>
     <string name="clock_format_12">12 tuntia</string>
     <string name="clock_format_24">24 tuntia</string>
+    <string name="weather_feels">tuntuu</string>
+    <string name="weather_rain">sade</string>
 </resources>

@@ -19,9 +19,9 @@ sky-blue glow; on any other Android TV home it is an ordinary app.
   launcher's query for the weather on Home (below), reusing the last reading for 3 hours and dropping it after 6 if
   the refresh keeps failing. It goes online for that only once Android reports the network as validated, and tries
   anyway after 2 minutes on a network that never validates. It runs nothing in the background.
-- **On Home.** With `weather_feed` set to this add-on's package in the launcher's `config.xml`, the launcher shows two
-  lines under the clock: the weather now, for example "Lisbon · 15° · 77% · feels 14°", and the next three days,
-  for example "Thu 18°/11° · Fri 17°/10° rain 60% · Sat 16°/9°" (the chance of rain from 50%). OK on them opens this
+- **On Home.** With `weather_feed` set to this add-on's package in the launcher's `config.xml`, the launcher shows a
+  centered pill as wide as the clock and date block, with the weather now, for example "Lisbon · 15° · 77% · feels 14°", and the next three days,
+  for example "Thu 18°/11° · Fri 17°/10° rain 60% · Sat 16°/9°" (the chance of rain from 50%). Text wraps as needed; OK opens this
   add-on. The launcher reads a read-only provider (`content://io.github.sumyabazar1.weather.feed/now` for the place and
   the weather there, `/days` for the three days) and never goes online itself. Contract:
   [docs/modules.md](../../docs/modules.md), "The weather on Home".
@@ -84,10 +84,11 @@ the weather page, the card prompt, and the card shown in the launcher's dock.
 
 The options: Xiaomi TV (MiTV-MOOR2), Google TV 11, with `forecast_days` 7, `show_humidity` and `show_wind` on.
 
-The weather on Home (the two lines under the launcher's clock, read from this add-on's provider):
+The weather pill on Home (read from this add-on's provider):
 
 - Tesla Smart TV Q55E655GUS (Expressluck, sepolia, MediaTek mt5896), Google TV 14, firmware UKN6.260116.046: the weather
-  page, the card, and the lines on Home with the city chosen in this add-on.
+  page, the card, and the clock-width pill on Home with the city chosen in this add-on. In Greek and 24-hour clock mode,
+  the pill stayed clear while scrolling and OK opened the add-on.
 - Xiaomi TV Box S 3rd gen (MiTV-AFMU0, twilight, Amlogic), Google TV 14, firmware UKG3.250826.001 / V816.0.11.0.UZFAABX: the
   lines on Home, including the first reading after a reboot, when the add-on waits until Android reports the network as working.
 

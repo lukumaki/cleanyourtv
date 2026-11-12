@@ -115,4 +115,6 @@
     <string name="clock_format_system">Systeem</string>
     <string name="clock_format_12">12-uurs</string>
     <string name="clock_format_24">24-uurs</string>
+    <string name="weather_feels">gevoelstemperatuur</string>
+    <string name="weather_rain">regen</string>
 </resources>

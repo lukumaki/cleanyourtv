@@ -112,4 +112,6 @@
     <string name="clock_format_system">Systém</string>
     <string name="clock_format_12">12hodinové</string>
     <string name="clock_format_24">24hodinové</string>
+    <string name="weather_feels">pocitově</string>
+    <string name="weather_rain">déšť</string>
 </resources>

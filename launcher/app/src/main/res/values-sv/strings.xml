@@ -125,4 +125,6 @@
     <string name="clock_format_system">System</string>
     <string name="clock_format_12">12 timmar</string>
     <string name="clock_format_24">24 timmar</string>
+    <string name="weather_feels">känns som</string>
+    <string name="weather_rain">regn</string>
 </resources>

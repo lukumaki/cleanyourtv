@@ -152,4 +152,6 @@
     <string name="clock_format_system">מערכת</string>
     <string name="clock_format_12">12 שעות</string>
     <string name="clock_format_24">24 שעות</string>
+    <string name="weather_feels">מרגיש כמו</string>
+    <string name="weather_rain">גשם</string>
 </resources>

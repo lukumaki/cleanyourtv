@@ -98,4 +98,6 @@
     <string name="clock_format_system">Système</string>
     <string name="clock_format_12">12 heures</string>
     <string name="clock_format_24">24 heures</string>
+    <string name="weather_feels">ressenti</string>
+    <string name="weather_rain">pluie</string>
 </resources>

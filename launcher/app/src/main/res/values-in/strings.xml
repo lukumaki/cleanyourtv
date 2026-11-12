@@ -113,4 +113,6 @@
     <string name="clock_format_system">Sistem</string>
     <string name="clock_format_12">12 jam</string>
     <string name="clock_format_24">24 jam</string>
+    <string name="weather_feels">terasa</string>
+    <string name="weather_rain">hujan</string>
 </resources>

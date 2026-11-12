@@ -26,6 +26,13 @@ public class WeatherLineTest {
                 WeatherLine.todayParts(reading("Athens", 15.5, 15.6, 50)));
     }
 
+    @Test public void weatherWordsCanFollowTheTvLanguage() {
+        assertArrayEquals(new String[] {"Berlin", "15°", "77%", "gefühlt 14°"},
+                WeatherLine.todayParts(reading("Berlin", 15.2, 13.6, 77), "gefühlt"));
+        assertArrayEquals(new String[] {"Thu 18°/11° Regen 60%"},
+                WeatherLine.daysParts(Collections.singletonList(day("Thu", 18, 11, 60)), "Regen"));
+    }
+
     @Test public void todayRoundsBelowZeroTowardTheNearestDegree() {
         assertArrayEquals(new String[] {"Oslo", "-2°", "90%", "feels -5°"},
                 WeatherLine.todayParts(reading("Oslo", -2.4, -4.6, 90)));

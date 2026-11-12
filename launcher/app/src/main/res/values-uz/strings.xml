@@ -114,4 +114,6 @@
     <string name="clock_format_system">Tizim</string>
     <string name="clock_format_12">12 soatlik</string>
     <string name="clock_format_24">24 soatlik</string>
+    <string name="weather_feels">seziladi</string>
+    <string name="weather_rain">yomg‘ir</string>
 </resources>

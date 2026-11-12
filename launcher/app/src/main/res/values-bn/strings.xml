@@ -102,4 +102,6 @@
     <string name="clock_format_system">সিস্টেম</string>
     <string name="clock_format_12">১২ ঘণ্টা</string>
     <string name="clock_format_24">২৪ ঘণ্টা</string>
+    <string name="weather_feels">অনুভূত</string>
+    <string name="weather_rain">বৃষ্টি</string>
 </resources>

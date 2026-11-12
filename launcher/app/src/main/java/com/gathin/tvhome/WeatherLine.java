@@ -20,7 +20,7 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.RejectedExecutionException;
 
 /**
- * weather_feed (config.xml): the weather now and the next three days, two lines under the clock, from an add-on such
+ * weather_feed (config.xml): the weather now and the next three days, in a wrapping pill under the clock, from an add-on such
  * as Weather. The launcher only reads what the add-on publishes and stays offline; the add-on does the fetching.
  * Contract: docs/modules.md.
  */
@@ -119,8 +119,12 @@ final class WeatherLine {
                     retrySoon();
                     return;
                 }
-                CharSequence now = reading == null ? "" : join(todayParts(reading));
-                CharSequence next = reading == null ? "" : join(daysParts(days));
+                // Greek has weather wording even though the launcher has no full Greek translation yet.
+                boolean greek = "el".equals(ctx.getResources().getConfiguration().getLocales().get(0).getLanguage());
+                CharSequence now = reading == null ? "" : join(todayParts(reading,
+                        ctx.getString(greek ? R.string.weather_feels_el : R.string.weather_feels)));
+                CharSequence next = reading == null ? "" : join(daysParts(days,
+                        ctx.getString(greek ? R.string.weather_rain_el : R.string.weather_rain)));
                 SpannableStringBuilder both = new SpannableStringBuilder(now);
                 if (now.length() > 0 && next.length() > 0) both.append('\n');
                 both.append(next);
@@ -175,7 +179,11 @@ final class WeatherLine {
 
     /** The first line: the place, the temperature, the relative humidity and the feels-like temperature. */
     static String[] todayParts(Reading r) {
-        return new String[] {r.place, Math.round(r.tempC) + "°", r.humidity + "%", "feels " + Math.round(r.feelsC) + "°"};
+        return todayParts(r, "feels");
+    }
+
+    static String[] todayParts(Reading r, String feelsWord) {
+        return new String[] {r.place, Math.round(r.tempC) + "°", r.humidity + "%", feelsWord + " " + Math.round(r.feelsC) + "°"};
     }
 
     /**
@@ -183,11 +191,15 @@ final class WeatherLine {
      * only from {@link #RAIN_FROM_PCT} %, so a dry week stays short. A day without a name or a high and low is left out.
      */
     static String[] daysParts(List<Day> days) {
+        return daysParts(days, "rain");
+    }
+
+    static String[] daysParts(List<Day> days, String rainWord) {
         List<String> out = new ArrayList<>();
         for (Day d : days) {
             if (d.name.isEmpty() || Double.isNaN(d.maxC) || Double.isNaN(d.minC)) continue;
             String part = d.name + " " + Math.round(d.maxC) + "°/" + Math.round(d.minC) + "°";
-            if (d.rainPct >= RAIN_FROM_PCT) part += " rain " + d.rainPct + "%";
+            if (d.rainPct >= RAIN_FROM_PCT) part += " " + rainWord + " " + d.rainPct + "%";
             out.add(part);
         }
         return out.toArray(new String[0]);

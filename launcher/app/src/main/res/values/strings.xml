@@ -158,4 +158,8 @@
     <string name="clock_format_system">System</string>
     <string name="clock_format_12">12-hour</string>
     <string name="clock_format_24">24-hour</string>
+    <string name="weather_feels">feels</string>
+    <string name="weather_rain">rain</string>
+    <string name="weather_feels_el" translatable="false">αισθητή θερμοκρασία</string>
+    <string name="weather_rain_el" translatable="false">βροχή</string>
 </resources>

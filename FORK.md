@@ -1,19 +1,18 @@
 # This fork: the weather and a three-day forecast under the clock, from the Weather add-on
 
-A fork of [CleanYourTV](https://github.com/Gathin23/cleanyourtv) (on its v3.3.0 launcher) that adds one thing: **two
-lines under Home's clock, the weather now and the next three days, read from the Weather add-on**. The launcher keeps no
+A fork of [CleanYourTV](https://github.com/Gathin23/cleanyourtv) (on its v3.3.0 launcher) that adds one thing: **a weather
+pill under Home's clock, showing the weather now and the next three days from the Weather add-on**. The launcher keeps no
 `INTERNET` permission and goes online for nothing; the add-on does the fetching.
-
-![Home with the two weather lines under the clock](docs/switches/weather_feed.jpg)
 
 ```
 Lisbon  ·  13°  ·  86%  ·  feels 13°
 Fri 16°/8°  ·  Sat 16°/7° rain 60%  ·  Sun 15°/7°
 ```
 
-The first line is the place, the temperature, the humidity and the feels-like temperature. The second is the next three
-days with their high and low; a day shows its chance of rain only from 50%, so a dry week stays short. The two lines are
-one focus target: press Up from the dock and OK to open the Weather add-on's full page.
+The first part is the place, the temperature, the humidity and the feels-like temperature. The second is the next three
+days with their high and low; a day shows its chance of rain only from 50%, so a dry week stays short. The pill uses the
+same focus style as the top buttons, spans the clock and date block, centers its text and grows to wrap longer wording. Press OK on it to open the Weather
+add-on's full page.
 
 ## See exactly what changed
 
@@ -45,12 +44,12 @@ How often it reads, so the TV is not kept online for it:
 
 ## Tested on
 
-A Tesla Smart TV Q55E655GUS (Expressluck, sepolia, MediaTek mt5896), Google TV 14, with this launcher as Home, in use since
-4 November 2026. The launcher builds to 589,365 bytes, under upstream's 589,824 byte gate, and its unit tests and lint
-pass. Other TVs have not been tried.
+A Tesla Smart TV Q55E655GUS (Expressluck, sepolia, MediaTek mt5896), Google TV 14, with this launcher as Home. The
+clock-width pill was checked on the TV in Greek with a 24-hour clock: the weather stayed centered while scrolling the app
+grid, and OK opened the Weather add-on. The launcher build, unit tests and lint pass. Other TVs have not been tried.
 
-Known limits: the weekday names follow the TV's language, but the sky words come from the add-on, which has English and
-French only, and "feels" and "rain" are English in the launcher.
+The weekday names follow the TV's language. The launcher translates the weather labels for its supported languages and
+Greek. The add-on's full-page sky words fall back to English in Greek.
 
 ## Install
 
