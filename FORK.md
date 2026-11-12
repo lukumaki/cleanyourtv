@@ -4,6 +4,8 @@ A fork of [CleanYourTV](https://github.com/Gathin23/cleanyourtv) that adds **a g
 date, showing the weather now and the next three days from the Weather add-on**. The launcher keeps no
 `INTERNET` permission and goes online for nothing; the add-on does the fetching.
 
+![Clock-width glass weather pill on a TV, with the city and Wi-Fi name blurred](docs/switches/weather_feed.jpg)
+
 ```
 Lisbon  ·  13°  ·  86%  ·  feels 13°
 Fri 16°/8°  ·  Sat 16°/7° rain 60%  ·  Sun 15°/7°
@@ -24,7 +26,7 @@ The README keeps the upstream text under a short fork note.
 
 | Part | What it does |
 |---|---|
-| `weather_feed` (launcher, `config.xml`) | The package of an add-on that publishes the weather. Empty by default: nothing is read and Home looks as it did. A launcher that cannot find the add-on, or finds a provider another app holds, shows nothing. |
+| `weather_feed` (launcher, `config.xml`) | The package of an add-on that publishes the weather. This fork names the Weather add-on by default; clear the value to hide the pill. If the add-on is absent, or another app holds its provider, Home shows no weather. |
 | `addons/weather` (the Weather add-on) | Publishes a read-only content provider, `io.github.sumyabazar1.weather.feed`, with `/now` (place, temperature, feels-like, humidity, wind, air quality) and `/days` (weekday, sky, high, low, chance of rain). It holds only a place name and the weather there. |
 
 The columns are in [docs/modules.md](docs/modules.md), "The weather on Home". The add-on asks for one more permission than
@@ -57,11 +59,8 @@ Greek. The add-on's full-page sky words fall back to English in Greek.
    repo's README describes.
 2. Build and install the add-on: `cd addons/weather && ./gradlew assembleRelease`, then `adb install -r` the APK. Open
    it once and pick your city.
-3. Name the add-on in `launcher/app/src/main/res/values/config.xml` before building the launcher:
-
-   ```xml
-   <string name="weather_feed" translatable="false">io.github.sumyabazar1.weather</string>
-   ```
+3. The launcher's `weather_feed` key already names this add-on. To build without the weather pill, clear that value in
+   `launcher/app/src/main/res/values/config.xml` before building.
 
 Nothing else in the launcher changes, so an existing theme or list keeps working.
 

@@ -154,8 +154,8 @@ The [Game Day](../addons/README.md) add-on implements this from calendar links t
 An app can hand Home the weather now and the next three days. The launcher shows a centered, wrapping pill as wide as the clock and date block (under
 the `show_stats` line when that is on): the weather now, then the three days, each with its high and low and, from 50%
 up, its chance of rain. OK on the pill opens the app. The launcher only reads; it never writes to the app and never goes
-online, so the app does the fetching. The owner opts in by naming the app's package in the `weather_feed` key
-(`config.xml`); there is no card prompt for it.
+online, so the app does the fetching. The package is named in the `weather_feed` key (`config.xml`); this fork names the
+Weather add-on by default, and an empty value hides the pill. There is no card prompt for it.
 
 1. Name a read-only content provider in a `meta-data` on your `<application>`:
 
