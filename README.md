@@ -1,11 +1,11 @@
-> ### This is a fork of [CleanYourTV](https://github.com/Gathin23/cleanyourtv), built on its v3.3.0 release
+> ### This is a fork of [CleanYourTV](https://github.com/Gathin23/cleanyourtv), originally based on v3.3.0 and later synced with upstream main
 >
-> It adds **two weather lines under Home's clock**: the weather now and the next three days (with the chance of rain
+> It adds **a glass weather pill below Home's clock and date**: the weather now and the next three days (with the chance of rain
 > from 50%), read from the Weather add-on, so the launcher itself stays offline. It is off until you name the add-on in
 > `config.xml`, so with it unset Home looks exactly as the original.
 >
 > **[What is different (FORK.md)](FORK.md)** ·
-> **[Every changed line against v3.3.0](https://github.com/Gathin23/cleanyourtv/compare/v3.3.0...lukumaki:weather-feed)** ·
+> **[Compare with upstream main](https://github.com/Gathin23/cleanyourtv/compare/main...lukumaki:weather-feed)** ·
 > **[The original project](https://github.com/Gathin23/cleanyourtv)**
 >
 > Everything below this box is the original README, unchanged.

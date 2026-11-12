@@ -1,7 +1,7 @@
-# This fork: the weather and a three-day forecast under the clock, from the Weather add-on
+# This fork: a weather pill with a three-day forecast
 
-A fork of [CleanYourTV](https://github.com/Gathin23/cleanyourtv) (on its v3.3.0 launcher) that adds one thing: **a weather
-pill under Home's clock, showing the weather now and the next three days from the Weather add-on**. The launcher keeps no
+A fork of [CleanYourTV](https://github.com/Gathin23/cleanyourtv) that adds **a glass weather pill below Home's clock and
+date, showing the weather now and the next three days from the Weather add-on**. The launcher keeps no
 `INTERNET` permission and goes online for nothing; the add-on does the fetching.
 
 ```
@@ -10,16 +10,15 @@ Fri 16°/8°  ·  Sat 16°/7° rain 60%  ·  Sun 15°/7°
 ```
 
 The first part is the place, the temperature, the humidity and the feels-like temperature. The second is the next three
-days with their high and low; a day shows its chance of rain only from 50%, so a dry week stays short. The pill uses the
-same focus style as the top buttons, spans the clock and date block, centers its text and grows to wrap longer wording. Press OK on it to open the Weather
-add-on's full page.
+days with their high and low; a day shows its chance of rain only from 50%, so a dry week stays short. The pill matches
+the clock-and-date area's width, keeps the top buttons' glass fill and focus style, and centers its text as it wraps.
+Press OK on it to open the Weather add-on's full page.
 
 ## See exactly what changed
 
-This fork is built on the original's **v3.3.0** release. GitHub shows every changed line, with the current counts of
-commits and files, here:
-[Gathin23/cleanyourtv v3.3.0 ... lukumaki:weather-feed](https://github.com/Gathin23/cleanyourtv/compare/v3.3.0...lukumaki:weather-feed).
-The README keeps the original text under a short note at the top, so a later merge from the original stays easy.
+This fork began at **v3.3.0** and has since merged upstream `main` through commit `b9538048`.
+[Compare the weather-feed branch with upstream main](https://github.com/Gathin23/cleanyourtv/compare/main...lukumaki:weather-feed).
+The README keeps the upstream text under a short fork note.
 
 ## What is different
 
@@ -45,8 +44,9 @@ How often it reads, so the TV is not kept online for it:
 ## Tested on
 
 A Tesla Smart TV Q55E655GUS (Expressluck, sepolia, MediaTek mt5896), Google TV 14, with this launcher as Home. The
-clock-width pill was checked on the TV in Greek with a 24-hour clock: the weather stayed centered while scrolling the app
-grid, and OK opened the Weather add-on. The launcher build, unit tests and lint pass. Other TVs have not been tried.
+glass, clock-width pill was checked on the TV in Greek with a 24-hour clock: the weather stayed centered while scrolling
+the app grid, and OK opened the Weather add-on. The launcher build, unit tests and lint pass. Other TVs have not been
+tried.
 
 The weekday names follow the TV's language. The launcher translates the weather labels for its supported languages and
 Greek. The add-on's full-page sky words fall back to English in Greek.
