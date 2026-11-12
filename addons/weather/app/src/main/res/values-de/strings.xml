@@ -6,12 +6,17 @@
     <string name="humidity">Luftfeuchte %1$d%%</string>
     <string name="wind">Wind %1$d km/h</string>
     <string name="wind_mph">Wind %1$d mph</string>
+    <string name="other_unit_c">%1$d°C</string>
+    <string name="other_unit_f">%1$d°F</string>
+    <string name="high_low">%1$d° / %2$d°</string>
     <string name="aqi_line">Luftqualität %1$d · %2$s</string>
     <string name="updated">Aktualisiert %1$s · Open-Meteo</string>
     <string name="change_city">Stadt ändern</string>
     <string name="weather_settings">Wetter-Einstellungen</string>
     <string name="settings_done">Fertig</string>
     <string name="setting_units">Temperatureinheit</string>
+    <string name="unit_c">Celsius (°C)</string>
+    <string name="unit_f">Fahrenheit (°F)</string>
     <string name="setting_both_units">Beide Einheiten zeigen</string>
     <string name="setting_days">Vorhersage</string>
     <plurals name="day_count">
@@ -21,6 +26,7 @@
     <string name="setting_humidity">Luftfeuchte zeigen</string>
     <string name="setting_wind">Wind zeigen</string>
     <string name="setting_reset">Wetter-Einstellungen zurücksetzen</string>
+    <string name="setting_value">%1$s · %2$s</string>
     <string name="option_on">An</string>
     <string name="option_off">Aus</string>
     <string name="loading">Wetter wird geladen…</string>
