@@ -119,7 +119,7 @@ final class WeatherLine {
                     retrySoon();
                     return;
                 }
-                // Greek has weather wording even though the launcher has no full Greek translation yet.
+                // Use the Greek weather labels when the launcher itself is set to Greek.
                 boolean greek = "el".equals(ctx.getResources().getConfiguration().getLocales().get(0).getLanguage());
                 CharSequence now = reading == null ? "" : join(todayParts(reading,
                         ctx.getString(greek ? R.string.weather_feels_el : R.string.weather_feels)));

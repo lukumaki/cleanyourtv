@@ -27,7 +27,9 @@ The README keeps the upstream text under a short fork note.
 | Part | What it does |
 |---|---|
 | `weather_feed` (launcher, `config.xml`) | The package of an add-on that publishes the weather. This fork names the Weather add-on by default; clear the value to hide the pill. If the add-on is absent, or another app holds its provider, Home shows no weather. |
+| `wifi_status_color` (launcher, `config.xml`) | The Wi-Fi icon is green while the TV is online, making the connected state visible at a glance. |
 | `addons/weather` (the Weather add-on) | Publishes a read-only content provider, `io.github.sumyabazar1.weather.feed`, with `/now` (place, temperature, feels-like, humidity, wind, air quality) and `/days` (weekday, sky, high, low, chance of rain). It holds only a place name and the weather there. |
+| Greek launcher translation | Adds a complete Greek interface. For Greek, this fork uses a subset of [Arimo](https://fonts.google.com/specimen/Arimo), including its OFL license in the app assets; because Arimo starts at regular weight, the lighter clock styles also render at regular weight. |
 
 The columns are in [docs/modules.md](docs/modules.md), "The weather on Home". The add-on asks for one more permission than
 before, `ACCESS_NETWORK_STATE`, only to read whether Android has validated the network; the launcher's manifest is unchanged. They are not the `weather_now` columns the
@@ -47,8 +49,8 @@ How often it reads, so the TV is not kept online for it:
 
 A Tesla Smart TV Q55E655GUS (Expressluck, sepolia, MediaTek mt5896), Google TV 14, with this launcher as Home. The
 glass, clock-width pill was checked on the TV in Greek with a 24-hour clock: the weather stayed centered while scrolling
-the app grid, and OK opened the Weather add-on. The launcher build, unit tests and lint pass. Other TVs have not been
-tried.
+the app grid, and OK opened the Weather add-on. The Greek Arimo build also installed and rendered the launcher UI and
+weather pill on this TV. Other TVs have not been tried.
 
 The weekday names follow the TV's language. The launcher translates the weather labels for its supported languages and
 Greek. The add-on's full-page sky words fall back to English in Greek.

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools" tools:ignore="ReferenceType">
+    <!-- Arimo has Greek glyphs. Its variable font starts at regular weight, so light styles use regular. -->
+    <string name="font_body" translatable="false">@font/arimo_regular</string>
+    <string name="font_regular" translatable="false">@font/arimo_regular</string>
+    <string name="font_light" translatable="false">@font/arimo_regular</string>
+    <string name="font_extralight" translatable="false">@font/arimo_regular</string>
+    <string name="font_medium" translatable="false">@font/arimo_medium</string>
+</resources>

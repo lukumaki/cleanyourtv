@@ -14,7 +14,8 @@
      `values-uk` set it), and `rtl_app_grid`/`rtl_menu_bar` true for a right-to-left language
      (`values-iw`).
    - `fonts.xml`: point `font_body`, `font_regular` and the other `font_*` at the system families when the
-     bundled Outfit has no glyphs for the language's letters (`values-vi`, #833).
+     bundled Outfit has no glyphs for the language's letters (`values-vi`, #833). The weather-feed fork's
+     `values-el` uses Arimo as an optional Greek typeface test; its translation-only branch keeps Outfit.
    - `lunar.xml`: the lunar date format, the leap-month wording and the stem and branch names, for a
      language that names them itself (`values-zh-rCN`, `values-zh-rTW`, `values-vi`, `values-ko`). Keep
      `lunar_stems` at ten items and `lunar_branches` at twelve: `Lunar.java` indexes both by position,
